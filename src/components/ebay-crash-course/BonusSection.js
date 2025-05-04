@@ -36,7 +36,7 @@ export default function BonusSection() {
     <div className="bg-[#333] text-white pt-20 pb-10 text-center relative z-10">
       <div className="max-w-3xl mx-auto px-4">
         <h2 className="text-4xl md:text-5xl font-bold mb-12 leading-snug">
-          You‘ll Also Get Bonus That <br /> You Won't Believe!
+          You&apos;ll Also Get Bonus That <br /> You Won&apos;t Believe!
         </h2>
       </div>
 

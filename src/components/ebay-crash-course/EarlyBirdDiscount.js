@@ -21,7 +21,7 @@ export default function EarlyBirdDiscount() {
           viewport={{ once: true }}
         >
           <h1 className="text-lg text-white md:text-xl font-bold">
-            Our EBAY CRASH COURSE (ECC) 3.0 is designed for Busy Individuals, House Wives, Students and Job Persons who want to learn fast and earn in Dollars! Plus, there's an exclusive offer you can't afford to miss.
+            Our EBAY CRASH COURSE (ECC) 3.0 is designed for Busy Individuals, House Wives, Students and Job Persons who want to learn fast and earn in Dollars! Plus, there&apos;s an exclusive offer you can&apos;t afford to miss.
           </h1>
           <button className="mt-3 bg-[#29ab87] text-white hover:bg-transparent hover:text-[#29ab87] border border-[#29ab87] font-semibold px-6 py-3 rounded-md transition-all duration-300 flex items-center gap-2">
   Enroll Now <FaArrowRight className="text-lg" />

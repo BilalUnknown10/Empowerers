@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { BlogsData } from "@/data";
 import axios from "axios";
 
-const page = () => {
+const Page = () => {
   const [blogs, setBlogs] = useState([]);
 
   const getAllBlogs = async () => {
@@ -46,4 +46,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

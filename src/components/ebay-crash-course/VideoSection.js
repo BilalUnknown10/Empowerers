@@ -35,7 +35,7 @@ const Video = () => {
             Learn “eBay”, the World’s 2nd Largest eCommerce Marketplace in Just 4 Hours.
           </h1>
           <p className="text-[16px] sm:text-[18px] text-white">
-            Even if you're an absolute beginner with no prior experience on eBay!
+            Even if you&apos;re an absolute beginner with no prior experience on eBay!
           </p>
 
           {/* Buttons */}
