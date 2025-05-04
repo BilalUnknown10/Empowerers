@@ -7,7 +7,7 @@ import React, { use, useEffect, useState } from "react";
 
 
 
-const page =  ({params}) => {
+const Page =  ({params}) => {
   const {_id} = use(params);
   const [oneBlog, setOneBlog] = useState([]);
   const getOneBlog = async () => {
@@ -54,4 +54,4 @@ const page =  ({params}) => {
   );
 };
 
-export default page;
+export default Page;
