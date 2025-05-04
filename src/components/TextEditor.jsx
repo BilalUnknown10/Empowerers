@@ -5,7 +5,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import TextAlign from "@tiptap/extension-text-align";
-import FontSize from "@tiptap/extension-font-size";
+// import FontSize from "@tiptap/extension-font-size";
 import { Bold, Italic, List, ListOrdered, LinkIcon, ImageIcon, AlignLeft, AlignCenter, AlignRight, Text } from "lucide-react";
 import { useEffect } from "react";
 
@@ -17,7 +17,7 @@ const RichTextEditor = ({ value, onChange }) => {
       Link.configure({ openOnClick: true }),
       Image,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
-      FontSize.configure({ types: ["textStyle"] }),
+      // FontSize.configure({ types: ["textStyle"] }),
     ],
     content: value, // Initial content
     onUpdate: ({ editor }) => {
