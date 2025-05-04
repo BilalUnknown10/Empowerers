@@ -129,12 +129,13 @@ function Navbar() {
   const [showToolsDropdown, setShowToolsDropdown] = useState(false);
   const [showTools, setShowTools] = useState(false);
   const [showTraining, setShowTraining] = useState(false);
-  const [trainingMenu, setTrainingMenu] = useState([])
+  const [trainingMenu, setTrainingMenu] = useState([]);
+  const [pageUrl, setPageUrl] = useState();
 
   const getAllServices = async () => {
     try {
       const response = await axios.get('/api/trainingMenu/all_training_menu');
-      // console.log(response.data);
+      console.log(response.data);
       setTrainingMenu(response.data);
     } catch (error) {
       console.log(error, "error in get all services in navbar")
@@ -144,6 +145,14 @@ function Navbar() {
   const logout = () => {
     localStorage.clear();
     window.location.href = "/";
+  }
+
+  const trainingPage = (e) => {
+    const pageName = e.target.innerHTML;
+    const replace = pageName.replace(/\s+/g, "-");
+    const lowerCase = replace.toLowerCase();
+    router.push(`/trainingPage/${lowerCase}`)
+    console.log(lowerCase)
   }
 
   useEffect(() => {
@@ -280,11 +289,13 @@ function Navbar() {
                   >
                     <div className=" ">
                       {/* {trainingMenu.map((training, index) => ( */}
-                      {trainingPrograms.map((training, index) => (
-                        <div key={index} className="" onClick={() => (router.push(`/trainingPage/${training.url}`))}>
+                      {trainingMenu.map((training, index) => (
+                        <div key={index} className="" onClick={ trainingPage
+                          // () => (router.push(`/trainingPage/${training.url}`))
+                          }>
                           <h3 className="text-[16px] hover:cursor-pointer hover:text-[#77C9B3] mb-2">
                             {/* {training.Training_Menu} */}
-                            {training.label}
+                            {training.Training_Menu}
                           </h3>
                           {/* <ul className="space-y-1 list-disc">
                             {training.submenu.map((sub, subIndex) => (

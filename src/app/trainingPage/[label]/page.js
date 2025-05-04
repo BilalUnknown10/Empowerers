@@ -199,24 +199,22 @@ const ourTrainings = [
 
 function Page() {
   const [trainings, setTrainings] = useState([]);
+
   const params = useParams();
   const router = useRouter();
 
   const label = params.label;
   const labelLowerCase = label.toLowerCase();
 
-  
-  
+  const convert = label.replace(/-/g, " ");
+  const labelUpperCase = convert.toUpperCase();
+  // console.log(labelUpperCase)
 
-  // // Optionally log matched training
-  // const matchedTraining = outTrainings.find(val => val.url === label);
-  // console.log("Matched Training:", matchedTraining);
 
   const getTrainingByName = async () => {
   try {
     const response = await axios.post(`/api/training/get_training_name?trainingCategory=${labelLowerCase}`);
-    console.log(response.data);
-    setTrainings(response.data)
+    setTrainings(response.data);
   } catch (error) {
     console.log(error.response.data)
   }
@@ -224,13 +222,14 @@ function Page() {
 
 useEffect( () => {
   getTrainingByName();
+  // if(trainings.length > 0) trainingNameToUpperCase();
 },[label]);
 
   return (
     <div className='my-20'>
     <div className='text-center'>
        <h1 className="md:text-5xl text-[#29ab87] text-2xl drop-shadow-lg font-bold">
-            {label} 
+            {labelUpperCase} 
           </h1>
     </div>
     <div className="md:flex my-12 px-10 md:mx-10  gap-5 lg:flex-row flex-wrap flex-col">
