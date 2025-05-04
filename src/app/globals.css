@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import "tailwindcss";
+
+/* @import "tailwindcss/preflight";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities"; */
+
+
+#galleryDiv {
+  scrollbar-width: none;
+}
+.textGray{
+  color: #4a4d48;
+}
+.main_hero_slogan {
+  @apply text-[12px] md:text-[14px] lg:text-[16px];
+}
+
+
+
+.font_inter {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.elementor-shape-fill{
+  fill: #29AB87;
+}
+
+.section_headings{
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+
+}
+.section_headings{
+  @apply text-[24px] md:text-[32px] lg:text-[52px] xl:text-[70px];
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-in-out forwards;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-slide {
+  animation: slide 20s linear infinite; /* Adjust the duration as needed */
+}
+
+
+ol ol {
+  padding-left: 30px; /* Adds extra padding to nested lists */
+}
+ol li {
+  padding: 10px 0; /* Adds padding to all list items */
+}
+
+ol{
+  list-style: decimal;
+  padding-left: 20px;
+}
+.navbar_size{
+  font-size: 16px;
+}
+@media (min-width: 1280px) {
+  .navbar_size {
+   font-size: 14px; /* Increases padding for larger screens */
+  }
+}
