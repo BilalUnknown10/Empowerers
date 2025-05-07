@@ -130,7 +130,6 @@ function Navbar() {
   const [showTools, setShowTools] = useState(false);
   const [showTraining, setShowTraining] = useState(false);
   const [trainingMenu, setTrainingMenu] = useState([]);
-  const [pageUrl, setPageUrl] = useState();
 
   const getAllServices = async () => {
     try {
@@ -164,11 +163,11 @@ function Navbar() {
   useEffect(() => {
     getAllServices()
     setShowSidebar(false); // Close sidebar on route change
-  }, []);
+  }, [role]);
 
   return (
     <>
-      <div className=" hidden bg-[#29ab87] font_inter p-2 lg:flex justify-between items-center text-white px-16">
+      <div className=" hidden bg-[#29ab87] font_inter p-2 lg:flex justify-between items-center text-white px-12">
         <div className="flex-1 flex justify-between items-center">
           {/* Email and contact on top bar */}
           <div className="flex gap-5 text-xl">
@@ -218,7 +217,7 @@ function Navbar() {
                   <Link href={"/auth/Login"}>Login</Link>
                 </div>
               </div>
-            ): <div className="cursor-pointer" onClick={logout}>Log Out</div>}
+            ): <div className="cursor-pointer " onClick={logout}>LogOut</div>}
             {<p>Hi, {username}</p>}
           </div>
         </div>
@@ -491,22 +490,22 @@ function Navbar() {
               My Account
               <span className="hidden md:block absolute left-0 bottom-0 w-0 h-[2px] bg-[#77C9B3] transition-all duration-300 group-hover:w-1/2"></span>
             </li>
-            {role === "student" && (
-              <li className="relative group cursor-pointer text-white py-2 bg-[#29ab87] px-5 hover:bg-white hover:border hover:text-[#29ab87] duration-300 transition-all ease-in-out hover:border-[#29ab87] rounded-full ">
-                <a href={"#training"}>Enroll Now</a>
-                {/* <span className="hidden md:block absolute left-0 bottom-0 w-0 h-[2px] bg-[#77C9B3] transition-all duration-300 group-hover:w-1/2"></span> */}
-              </li>
-            )}
-            {role != "student" && (
-              <li className="relative group cursor-pointer text-white py-2 bg-[#29ab87] px-5 hover:bg-white hover:border hover:text-[#29ab87] duration-300 transition-all ease-in-out hover:border-[#29ab87] rounded-full ">
+            {role ? <div>
+              {role === "student" ?
+               <li className="relative group cursor-pointer text-white py-2 bg-[#29ab87] px-5 hover:bg-white hover:border hover:text-[#29ab87] duration-300 transition-all ease-in-out hover:border-[#29ab87] rounded-full ">
                 <Link href={`/dashboard/${role}`}>Dashboard</Link>
                 {/* <span className="hidden md:block absolute left-0 bottom-0 w-0 h-[2px] bg-[#77C9B3] transition-all duration-300 group-hover:w-1/2"></span> */}
               </li>
-            )}
+            : <li className="relative group cursor-pointer text-white py-2 bg-[#29ab87] px-5 hover:bg-white hover:border hover:text-[#29ab87] duration-300 transition-all ease-in-out hover:border-[#29ab87] rounded-full ">
+                <Link href={`/dashboard/${role}`}>Dashboard</Link>
+                {/* <span className="hidden md:block absolute left-0 bottom-0 w-0 h-[2px] bg-[#77C9B3] transition-all duration-300 group-hover:w-1/2"></span> */}
+              </li>
+              }
+            </div>:<div></div>}
           </div>
         </div>
 
-        {/* Sidebar */}
+        {/* Sidebar */} 
         <div
           className={`fixed top-0 left-0 h-screen w-[80%] max-w-[300px] bg-white shadow-lg transform ${
             showSidebar ? "translate-x-0" : "-translate-x-full"

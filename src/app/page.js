@@ -23,11 +23,26 @@ import Services from "@/components/Home/Sevices";
 import Blogs from "@/components/Home/Blogs";
 import NewsLetter from "@/components/Services/NewsLetter";
 import CountdownTimer from "@/components/Home/CountDownTimer";
+import axios from "axios";
 export default function Home() {
   const [counterStart, setCounterStart] = useState(false);
   const [newStudent, setNewStudent] = useState(0);
+  const [eventTime, setEventTime] = useState([]);
+
+  const EventTime = async () => {
+    try {
+      const response = await axios.get(`/api/event/get_events`);
+      console.log(response.data);
+      setEventTime(response.data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
+
+    EventTime();
+
     const handleScroll = () => {
       // console.log("Current Scroll Position:", window.scrollY);
 
@@ -77,7 +92,12 @@ export default function Home() {
       </div>
       <Welcome />
 
-      <CountdownTimer targetDate="2025-04-01T02:30:00" />
+      {eventTime.length > 0 ? eventTime.map((event) => (
+        // <CountdownTimer targetDate="2025-06-01T02:50" />
+        <CountdownTimer key={event._id} eventName={event.name} targetDate={`${event.date}T${event.time}`} />
+
+      )) : ""}
+
       <Video />
 
       <Training />

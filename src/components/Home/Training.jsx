@@ -49,7 +49,7 @@ const Training = () => {
 
   const getTrainings = async () => {
     try {
-      const response = await axios.post(`/api/training/get_training_name?trainingCategory=${'main'}`);
+      const response = await axios.post(`/api/training/get_training_name?trainingCategory=${'main-training'}`);
       console.log(response.data);
       setMainTrainings(response.data);
     } catch (error) {

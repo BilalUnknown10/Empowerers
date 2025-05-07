@@ -18,7 +18,8 @@ const BlogManager = () => {
 const pathName = usePathname();
 const trainingByName = pathName.split("/");
 const lastPart = trainingByName[trainingByName.length - 1];
-console.log(trainingByName)
+console.log(lastPart);
+
 
 
   
@@ -109,12 +110,12 @@ console.log(trainingByName)
               <div
                 key={index}
                 // onClick={() => router.push(`/ebay-training/${data.id}`)}
-                className=" border lg:w-1/4 border-gray-300  hover:shadow-2xl transition-all ease-in-out duration-300 rounded-2xl bg-white overflow-hidden  mt-5 sm:mt-0 flex flex-col min-h-[400px]"
+                className="border my-5 lg:w-[350px] border-gray-300 hover:shadow-2xl transition-all ease-in-out duration-300 rounded-2xl bg-white overflow-hidden mt-5 sm:mt-0 flex flex-col min-h-[250px]"
               >
                 <img
                   src={`${data.imageUrl}`}
                   alt="no Image"
-                  className="hover:cursor-pointer rounded-t-md h-[200px]"
+                  className="hover:cursor-pointer rounded-t-md  h-[200px]"
                 />
                 <div className="mx-auto my-5 font-bold text-xl">
                   {data.trainingName}

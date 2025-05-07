@@ -20,17 +20,35 @@ export default function EditTrainingPage({ params }) {
   const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [authToken, setAuthToken] = useState("");
+  const [trainingMenu, setTrainingMenu] = useState([]);
+  const [trainingMenuUpper, setTrainingMenuUpper] = useState([]);
 
+  console.log(trainingMenu);
+  console.log(trainingMenuUpper);
+  console.log("old",oldTrainingCategory)
 
-  const categories = {
-    tiktok : "TikTok Shop Training",
-    ebay : "eBay Training",
-    etsy : "Etsy Training"
-  };
+  const getAllServices = async () => {
+      try {
+        const response = await axios.get('/api/trainingMenu/all_training_menu');
+        setTrainingMenuUpper(response.data);
+        const data = response.data;
+  
+        const formattedData = data.map((i) => {
+        const removeSpace = i.Training_Menu.replace(/\s+/g, "-").toLowerCase();
+        return removeSpace;
+      });
+        console.log(formattedData)
+        setTrainingMenu(formattedData);
+        // console.log(response.data);
+      } catch (error) {
+        console.log(error, "error in get all services in navbar")
+      }
+    };
 
 
   // Fetch blog data
   useEffect(() => {
+    getAllServices();
      const getToken = localStorage.getItem("token");
     if(getToken){
       setAuthToken(getToken);
@@ -38,8 +56,8 @@ export default function EditTrainingPage({ params }) {
     const fetchBlogData = async () => {
       try {
         const response = await axios.get(`/api/training/get_trainingById?id=${id}`);
-        const { trainingName, trainingDetails, trainingCategory, imageUrl } = response.data;
-        console.log(response.data); // Debugging
+        const { trainingName, trainingDetails, trainingCategory, imageUrl, trainingPrice } = response.data;
+        // console.log(response.data); // Debugging
   
         setTrainingName(trainingName);
         setTrainingCategory(trainingCategory);
@@ -53,8 +71,10 @@ export default function EditTrainingPage({ params }) {
 
         if(trainingCategory){
              const splitCategory = trainingCategory.split("-");
-            setOldTrainingCategory(splitCategory[0]);
+            setOldTrainingCategory(splitCategory);
         }
+
+        
 
          
       } catch (error) {
@@ -94,7 +114,7 @@ export default function EditTrainingPage({ params }) {
       });
 
       router.push(`/dashboard/admin/training/${trainingCategory}`); // Redirect to blog list after success
-      toast.success("Blog updated successfully");
+      toast.success("Training updated successfully");
     } catch (error) {
       console.error("Error updating blog:", error);
       toast.error(error.response.data);
@@ -105,7 +125,7 @@ export default function EditTrainingPage({ params }) {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
-      <h1 className="text-2xl font-bold mb-4">Edit Blog</h1>
+      <h1 className="text-2xl font-bold mb-4">Edit Training</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Title */}
@@ -121,11 +141,11 @@ export default function EditTrainingPage({ params }) {
         {/* select training */}
          <select name="cars" id="cars" onChange={(e) => (setTrainingCategory(e.target.value))}
             className="w-full p-2 border rounded">
-                
-            <option value={trainingCategory}>{categories[oldTrainingCategory]}</option>
-            <option value="tiktok-shop-training">TikTok Shop Training</option>
-            <option value="ebay-training">eBay Training</option>
-            <option value="etsy-training">Etsy Training</option>
+              <option>{trainingCategory}</option>
+              <option value={"main-training"}>Main Training</option>
+              {trainingMenu.length > 0 ? trainingMenu.map((menu,i) => (
+                <option key={menu._id} value = {menu}>{trainingMenuUpper[i].Training_Menu}</option>
+              )):""}
         </select>
 
         {/* Tags */}
@@ -138,13 +158,13 @@ export default function EditTrainingPage({ params }) {
         />
 
           {/* Training Price */}
-        <input
+       {trainingCategory !== "main-training" ?  <input
           type="text"
           placeholder="Training price"
           value={trainingPrice}
           onChange={(e) => setTrainingPrice(e.target.value)}
           className="w-full p-2 border rounded"
-        />
+        />:""}
 
         {/* Image Upload */}
         <input

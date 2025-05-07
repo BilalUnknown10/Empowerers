@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { VscDash } from "react-icons/vsc";
 
-const CountdownTimer = ({ targetDate }) => {
+const CountdownTimer = ({ targetDate, eventName }) => {
   const calculateTimeLeft = () => {
     const difference = new Date(targetDate) - new Date();
 
@@ -35,7 +35,7 @@ const CountdownTimer = ({ targetDate }) => {
         <div className="flex space-x-4 flex-col  gap-2 sm:flex-row text-center text-white text-2xl justify-center items-center font-bold">
           <div>
             <h1 className="font-bold text-xl sm:text-3xl textGray drop-shadow-md ">
-              Upcoming Mega Event: Remaining Time
+              {eventName} : Remaining Time
             </h1>
           </div>
           <div className="flex  ">

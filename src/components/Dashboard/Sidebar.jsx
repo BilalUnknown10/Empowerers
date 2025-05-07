@@ -9,14 +9,17 @@ import { IoIosLogOut, IoIosMenu } from "react-icons/io";
 import { FaEbay, FaEtsy, FaTiktok } from "react-icons/fa";
 import useUserStore from "@/store/useUserStore";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { MdModelTraining } from "react-icons/md";
 
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [trainingMenu, setTrainingMenu] = useState([]);
   const pathname = usePathname();
   const router = useRouter()
-  const {isLogin} = useUserStore();
+  // const {isLogin} = useUserStore();
 
   
 
@@ -45,54 +48,80 @@ const Sidebar = () => {
       setIsOpen(false);
     }
   };
+  
+  const staticMenuItems = [
+  { name: "Home", href: "/", icon: Home },
+  { name: "Dashboard", href: "/dashboard/admin", icon: LayoutDashboard },
+  { name: "Blog", href: "/dashboard/admin/blog", icon: FaBlog },
+  {
+    name: "Services",
+    href: "/dashboard/admin/services",
+    icon: LayoutDashboard,
+  },
+  {
+    name: "Training Menu",
+    href: "/dashboard/admin/training/trainingMenu",
+    icon: IoIosMenu,
+  },
+  {
+    name: "Main Trainings",
+    href: "/dashboard/admin/training/main-training",
+    icon: IoIosMenu,
+  }
+];
 
-  const menuItems = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "Dashboard", href: "/dashboard/admin", icon: LayoutDashboard },
-    { name: "Blog", href: "/dashboard/admin/blog", icon: FaBlog },
-    {
-      name: "Services",
-      href: "/dashboard/admin/services",
-      icon: LayoutDashboard,
-    },
-    {
-      name: "Training Menu",
-      href: "/dashboard/admin/training/trainingMenu",
-      icon: IoIosMenu,
-    },
-    {
-      name: "TikTok Shop Training",
-      href: `/dashboard/admin/training/${'tiktok-shop-training'}`,
-      icon: FaTiktok,
-    },
-    {
-      name: "eBay Training",
-      href: `/dashboard/admin/training/${'ebay-training'}`,
-      // href: "/dashboard/admin/training/"
-      icon: FaEbay,
-    },
-    {
-      name: "Etsy Training",
-      href: `/dashboard/admin/training/${'etsy-training'}`,
-      icon: FaEtsy,
-    },
-    {
-      name: "Main Trainings",
-      href: `/dashboard/admin/training/${'main'}`,
-      icon: FaEtsy,
-    },
-    {
-      name: "Log Out",
-      href: "",
-      icon: IoIosLogOut,
-    },
-  ];
+const logoutItem = { name: "Log Out", href: "", icon: IoIosLogOut };
+
+// Generate training menu items
+const dynamicMenuItems = trainingMenu.map((i) => {
+  const removeSpace = i.Training_Menu.replace(/\s+/g, "-").toLowerCase();
+  return {
+    name: i.Training_Menu,
+    href: `/dashboard/admin/training/${removeSpace}`,
+    icon: MdModelTraining, // or choose based on type
+  };
+});
+
+// Combine everything: static + dynamic + logout
+const menuItems = [...staticMenuItems, ...dynamicMenuItems, logoutItem];
+ 
 
   const logout = () => {
     console.log("logOut");
     localStorage.clear();
     window.location.href = "/";
   }
+
+  
+    const getAllServices = async () => {
+      try {
+        const response = await axios.get('/api/trainingMenu/all_training_menu');
+        console.log(response.data);
+        setTrainingMenu(response.data);
+      } catch (error) {
+        console.log(error, "error in get all services in navbar")
+      }
+    };
+
+    // if(trainingMenu.length > 0) {
+    //     trainingMenu.forEach((i) => {
+    //        const removeSpace = i.Training_Menu.replace(/\s+/g, "-"); // replaces all spaces with hyphens
+    //        const href = removeSpace.toLowerCase();
+    //       menuItems.push({
+    //         name : i.Training_Menu,
+    //         href: `/dashboard/admin/training/${href}`,
+    //         icon: FaEtsy,
+    //       })
+    //     });
+    //   }
+
+    //   console.log(menuItems)
+
+    useEffect(() => {
+      getAllServices();
+
+      
+    },[getAllServices])
 
   return (
     <>
@@ -149,6 +178,7 @@ const Sidebar = () => {
             </div>
           ))}
         </nav>
+        
       </div>
     </>
   );
