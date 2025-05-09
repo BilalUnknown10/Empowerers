@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import RichTextEditor from "@/components/TextEditor";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 export default function AddTrainingPage() {
 
   const router = useRouter();
+  const params = useParams()
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -63,8 +64,7 @@ export default function AddTrainingPage() {
 
   useEffect(() => {
     
-     const searchParams = useSearchParams();
-     const id = searchParams.get("id");
+     const {id} = params;
      setId(id);
 
       const getToken = localStorage.getItem("token");
