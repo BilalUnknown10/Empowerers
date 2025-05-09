@@ -10,8 +10,8 @@ import { FaEbay, FaEtsy, FaTiktok } from "react-icons/fa";
 import useUserStore from "@/store/useUserStore";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { MdModelTraining } from "react-icons/md";
-
+import { MdEmojiEvents, MdModelTraining } from "react-icons/md";
+import { BiSolidOffer } from "react-icons/bi";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,21 +53,33 @@ const Sidebar = () => {
   { name: "Home", href: "/", icon: Home },
   { name: "Dashboard", href: "/dashboard/admin", icon: LayoutDashboard },
   { name: "Blog", href: "/dashboard/admin/blog", icon: FaBlog },
+  // {
+  //   name: "Services",
+  //   href: "/dashboard/admin/services",
+  //   icon: LayoutDashboard,
+  // },
   {
-    name: "Services",
-    href: "/dashboard/admin/services",
-    icon: LayoutDashboard,
+    name: "Offer",
+    href: "/dashboard/admin/offer",
+    icon: BiSolidOffer,
   },
+   {
+    name: "Events",
+    href: "/dashboard/admin/event",
+    icon: MdEmojiEvents,
+  },
+
   {
     name: "Training Menu",
     href: "/dashboard/admin/training/trainingMenu",
     icon: IoIosMenu,
   },
+ 
   {
     name: "Main Trainings",
     href: "/dashboard/admin/training/main-training",
     icon: IoIosMenu,
-  }
+  },
 ];
 
 const logoutItem = { name: "Log Out", href: "", icon: IoIosLogOut };
@@ -96,7 +108,7 @@ const menuItems = [...staticMenuItems, ...dynamicMenuItems, logoutItem];
     const getAllServices = async () => {
       try {
         const response = await axios.get('/api/trainingMenu/all_training_menu');
-        console.log(response.data);
+        // console.log(response.data);
         setTrainingMenu(response.data);
       } catch (error) {
         console.log(error, "error in get all services in navbar")

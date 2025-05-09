@@ -30,12 +30,12 @@ const Icon = ({ path, size = 20, className = "" }) => (
 );
 
   return (
-    <div className="md:flex md:p-5">
-    {/* <Navbar/> */}
-    <Sidebar/>
+    // <div className="md:flex md:p-5">
+    // {/* <Navbar/> */}
+    // <Sidebar/>
     
 
-  {/* Main Content (Takes the remaining space) */}
+  // {/* Main Content (Takes the remaining space) */}
   <div className="p-6 bg-gray-100 w-[100%]">
     <h1 className="text-2xl font-bold">Dashboard</h1>
 
@@ -94,7 +94,7 @@ const Icon = ({ path, size = 20, className = "" }) => (
 </div>
 
  
-    </div>
+    // </div>
   );
     
 }

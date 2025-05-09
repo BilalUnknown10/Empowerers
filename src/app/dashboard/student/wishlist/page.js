@@ -1,4 +1,5 @@
 "use client";
+import Sidebar from "@/components/student-dashboard/Sidebar";
 import { useState } from "react";
 
 const dummyWishlist = [

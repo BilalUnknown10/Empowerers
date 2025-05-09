@@ -119,8 +119,7 @@ function Navbar() {
     router.push(e);
   };
 
-  const { isLogin, username, role, setRole, setIsLogin, setUsername } =
-    useUserStore();
+  const { isLogin, username, role, setRole, setIsLogin, setUsername, topMenu } = useUserStore();
 
   const [showServices, setShowServices] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(false);
@@ -130,6 +129,7 @@ function Navbar() {
   const [showTools, setShowTools] = useState(false);
   const [showTraining, setShowTraining] = useState(false);
   const [trainingMenu, setTrainingMenu] = useState([]);
+  
 
   const getAllServices = async () => {
     try {
@@ -186,8 +186,10 @@ function Navbar() {
           {/* Offers div with sliding animation */}
           <div className="text-xl px-3 py-2 text-white overflow-hidden relative w-[40%] xl:w-[50%]">
             <div className="whitespace-nowrap animate-slide  text-[12px] 2xl:text-[16px]">
-              Limited Time Offer: <span className="font-bold">20% Off</span> on
-              All Courses!
+              {/* Limited Time Offer: <span className="font-bold">20% Off</span> on
+              All Courses! */}
+              {topMenu !== "" ? <div>{topMenu.offerName} : {topMenu.offerDetails}</div> :
+              ""}
             </div>
           </div>
 

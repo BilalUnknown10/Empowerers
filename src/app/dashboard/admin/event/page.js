@@ -9,20 +9,12 @@ import { toast } from "react-toastify";
 
 const BlogManager = () => {
   const router = useRouter();
-  const [training, setTraining] = useState([]);
+  const [event, setEvent] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteBlogId, setDeleteBlogId] = useState(null);
   const [authToken, setAuthToken] = useState("");
 
-const pathName = usePathname();
-const trainingByName = pathName.split("/");
-const lastPart = trainingByName[trainingByName.length - 1];
-console.log(lastPart);
-
-
-
-  
 
   useEffect(() => {
 
@@ -33,12 +25,12 @@ console.log(lastPart);
 
     const fetchBlogs = async () => {
       try {
-        const res = await axios.post(`/api/training/get_training_name?trainingCategory=${lastPart}`);
+        const res = await axios.get(`/api/event/get_events`);
         console.log(res.data);
-        setTraining(res.data);
+        setEvent(res.data);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching blogs:", error.response.data);
+        console.error("Error fetching events:", error.response.data);
         setIsLoading(false);
       }
     };
@@ -46,7 +38,7 @@ console.log(lastPart);
   }, []);
 
   const handleEdit = (id) => {
-    router.push(`/dashboard/admin/training/editTrining/${id}`);
+    router.push(`/dashboard/admin/event/editEvent?id=${id}`);
   };
 
   const openDeleteModal = (id) => {
@@ -63,18 +55,18 @@ console.log(lastPart);
 
   const confirmDeleteBlog = async () => {
     try {
-      await axios.delete(`/api/training/delete_training?id=${deleteBlogId}`,{
+      await axios.delete(`/api/event/delete_event?id=${deleteBlogId}`,{
         headers : {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${authToken}`
         }
       });
-      toast.success("Training deleted successfully");
+      toast.success("Event deleted successfully");
       closeDeleteModal();
       const fetchBlogs = async () => {
         try {
-          const res = await axios.post(`/api/training/get_training_name?trainingCategory=${lastPart}`);
-          setTraining(res.data);
+          const res = await axios.get(`/api/event/get_events`);
+          setEvent(res.data);
           setIsLoading(false);
         } catch (error) {
           console.error("Error fetching blogs:", error);
@@ -90,12 +82,12 @@ console.log(lastPart);
   return (
     <div className="w-full mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Manage Trainings</h1>
+        <h1 className="text-2xl font-bold">Manage Events</h1>
         <button
-          onClick={() => router.push("/dashboard/admin/training/addTraining")}
+          onClick={() => router.push("/dashboard/admin/event/addEvent")}
           className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
         >
-          + Add New Training
+          + Add New Event
         </button>
       </div>
 
@@ -104,35 +96,27 @@ console.log(lastPart);
           <div className="w-16 h-16 border-t-4 border-[#29ab87] border-solid rounded-full animate-spin"></div>
         </div>
       ) : (
-        <div className="md:flex flex-wrap justify-center mt-7 gap-10 items-center lg:flex-row flex-col  ">
-          {training.map((data, index) => {
+        <div className=" mt-7 ">
+          {event.map((data, index) => {
             return (
               <div
                 key={index}
                 // onClick={() => router.push(`/ebay-training/${data.id}`)}
-                className="border my-5 lg:w-[350px] border-gray-300 hover:shadow-2xl transition-all ease-in-out duration-300 rounded-2xl bg-white overflow-hidden mt-5 sm:mt-0 flex flex-col min-h-[250px]"
+                className="border my-5 flex items-center justify-between px-5 flex-row gap-10 border-gray-300 hover:shadow-2xl transition-all ease-in-out duration-300 rounded-2xl bg-white overflow-hidden mt-5 sm:mt-0 "
               >
-                <img
-                  src={`${data.imageUrl}`}
-                  alt="no Image"
-                  className="hover:cursor-pointer rounded-t-md  h-[200px]"
-                />
-                <div className="mx-auto my-5 font-bold text-xl">
-                  {data.trainingName}
-                </div>
-                <div className=" m-4">
-                  {data.trainingDetails.map((features, index) => {
-                    return (
-                      <ul key={index} className="mb-2 list-disc ml-5">
-                        <li className="text-[16px]">{features}</li>
-                      </ul>
-                    );
-                  })}
+               <div className=" w-1/4">
+                 <p>{data.name}</p>
+               </div>
+               <div className=" w-1/4">
+                <p>{data.time}</p>
+               </div>
+               <div className=" w-1/4">
+                <p>{data.date}</p>
                 </div>
                 {deleteModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-transparent backdrop-blur-md bg-opacity-50">
+                <div className="fixed inset-0 flex items-center justify-center  border border-green-600 bg-transparent backdrop-blur-md bg-opacity-50">
                   <div className="bg-white p-6 rounded-lg shadow-lg">
-                    <p className="mb-4">Are you sure you want to delete this blog?</p>
+                    <p className="mb-4">Are you sure you want to delete this event?</p>
                     <div className="flex justify-end gap-4">
                       <button
                         onClick={closeDeleteModal}
@@ -150,7 +134,7 @@ console.log(lastPart);
                   </div>
                 </div>
                )}
-                <div className="flex justify-between px-5 pb-5 gap-2 mt-auto">
+                <div className="flex w-1/4 justify-end pt-6  px-5 pb-5 gap-2 ">
                   <button
                     onClick={() => handleEdit(data._id)}
                     className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition">
@@ -166,7 +150,7 @@ console.log(lastPart);
             );
           })}
         </div>
-      )}
+      )};
     </div>
   );
 };

@@ -9,16 +9,19 @@ import {
   mdiClipboardText, 
   mdiChartBar, 
   mdiCommentQuestion, 
-  mdiLogout 
+  mdiLogout, 
+  mdiBackspace
 } from "@mdi/js";
 import { useRouter, usePathname } from "next/navigation"; 
+import Link from "next/link";
 
 const studentMenu = [
-  // { href: "/dashboard", icon: mdiMonitor, label: "Dashboard" },
+  { href: "/dashboard/student", icon: mdiMonitor, label: "Dashboard" },
   { href: "/dashboard/student/profile", icon: mdiAccountCircle, label: "My Profile" },
   { href: "/dashboard/student/courses", icon: mdiBookOpenPageVariant, label: "Enrolled Courses" },
   { href: "/dashboard/student/wishlist", icon: mdiHeart, label: "Wishlist" },
   { href: "/dashboard/student/quiz", icon: mdiClipboardText, label: "My Quiz Attempts" },
+  { href: "/", icon: mdiBackspace, label: "Back" },
   // { href: "/orderHistory", icon: mdiChartBar, label: "Order History" },
   // { href: "/QA", icon: mdiCommentQuestion, label: "Question & Answer" },
 ];
@@ -43,7 +46,7 @@ const Sidebar = () => {
           {studentMenu.map((item, index) => {
             const isActive = pathname === item.href; // Check if the item is active
             return (
-              <a href={item.href} 
+              <Link href={item.href} 
                 key={index} 
                 className={`px-6 py-3 flex items-center cursor-pointer 
                   ${
@@ -55,7 +58,7 @@ const Sidebar = () => {
               >
                 <Icon path={item.icon} className="w-8 h-8 mr-3 text-[#239371] " />
                 <a href={item.href} className="text-sm">{item.label}</a>
-              </a>
+              </Link>
             );
           })}
         </ul>

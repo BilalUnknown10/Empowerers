@@ -53,7 +53,14 @@ export default function RootLayout({ children }) {
   const pathname = usePathname();
 
   // Add your page here
-  const noLayoutRoutes = ["/ebay-crash-course"];
+  const noLayoutRoutes = ["/ebay-crash-course",
+    "/dashboard/student",
+    "/dashboard/student/quiz",
+    "/dashboard/student/profile",
+    "/dashboard/student/courses",
+    "/dashboard/student/courses",
+    "/dashboard/student/wishlist",
+  ];
 
   const isNoLayout = noLayoutRoutes.includes(pathname);
 

@@ -9,6 +9,8 @@ const createEvent = async (req, res) => {
 
         const { date, time, name } = req.body;
 
+        console.log(date,name,time)
+
         if (!date || !time || !name) {
             return res.status(400).json( "All fields are required" );
         }

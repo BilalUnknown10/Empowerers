@@ -29,10 +29,13 @@ export default function Home() {
   const [newStudent, setNewStudent] = useState(0);
   const [eventTime, setEventTime] = useState([]);
 
+  console.log(eventTime)
+
+  console.log(eventTime);
   const EventTime = async () => {
     try {
       const response = await axios.get(`/api/event/get_events`);
-      console.log(response.data);
+      console.log(response.data)
       setEventTime(response.data);
     } catch (error) {
       console.log(error)
@@ -93,9 +96,7 @@ export default function Home() {
       <Welcome />
 
       {eventTime.length > 0 ? eventTime.map((event) => (
-        // <CountdownTimer targetDate="2025-06-01T02:50" />
-        <CountdownTimer key={event._id} eventName={event.name} targetDate={`${event.date}T${event.time}`} />
-
+        <CountdownTimer key={event._id} eventName={`${event.name}`} targetDate={`${event.date}T${event.time}`} />
       )) : ""}
 
       <Video />

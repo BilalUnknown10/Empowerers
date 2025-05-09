@@ -1,3 +1,5 @@
+import Sidebar from "@/components/student-dashboard/Sidebar";
+
 const userInfo = {
     "Registration Date": "February 29, 2024 5:08 AM",
     "First Name": "Castor",
@@ -12,7 +14,7 @@ const userInfo = {
   export default function Profile() {
     return (
       
-        <div className="w-auto h-auto bg-gray-50 lg:p-16 md:p-12 p-8">
+        <div className="w-full h-auto bg-gray-50 lg:p-16 md:p-12 p-8">
           <h1 className="text-2xl font-semibold mb-6">My Profile</h1>
           <div className="space-y-4">
             {Object.entries(userInfo).map(([label, value], index) => (

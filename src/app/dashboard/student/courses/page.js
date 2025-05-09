@@ -1,4 +1,5 @@
 "use client";
+import Sidebar from "@/components/student-dashboard/Sidebar";
 import { useState } from "react";
 
 const dummyCourses = {
@@ -25,6 +26,7 @@ export default function Courses() {
   ];
 
   return (
+  
     <div className="w-full max-w-4xl mx-auto mt-6">
       {/* Tabs Header */}
       <div className="flex border-b">

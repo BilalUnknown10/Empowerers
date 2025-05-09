@@ -9,20 +9,11 @@ import { toast } from "react-toastify";
 
 const BlogManager = () => {
   const router = useRouter();
-  const [training, setTraining] = useState([]);
+  const [offers, setOffers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteBlogId, setDeleteBlogId] = useState(null);
   const [authToken, setAuthToken] = useState("");
-
-const pathName = usePathname();
-const trainingByName = pathName.split("/");
-const lastPart = trainingByName[trainingByName.length - 1];
-console.log(lastPart);
-
-
-
-  
 
   useEffect(() => {
 
@@ -33,9 +24,9 @@ console.log(lastPart);
 
     const fetchBlogs = async () => {
       try {
-        const res = await axios.post(`/api/training/get_training_name?trainingCategory=${lastPart}`);
+        const res = await axios.get(`/api/offer/get_offers`);
         console.log(res.data);
-        setTraining(res.data);
+        setOffers(res.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching blogs:", error.response.data);
@@ -46,7 +37,7 @@ console.log(lastPart);
   }, []);
 
   const handleEdit = (id) => {
-    router.push(`/dashboard/admin/training/editTrining/${id}`);
+    router.push(`/dashboard/admin/offer/editOffer/${id}`);
   };
 
   const openDeleteModal = (id) => {
@@ -73,8 +64,8 @@ console.log(lastPart);
       closeDeleteModal();
       const fetchBlogs = async () => {
         try {
-          const res = await axios.post(`/api/training/get_training_name?trainingCategory=${lastPart}`);
-          setTraining(res.data);
+          const res = await axios.post(`/api/offer/get_offers`);
+          setOffers(res.data);
           setIsLoading(false);
         } catch (error) {
           console.error("Error fetching blogs:", error);
@@ -90,12 +81,12 @@ console.log(lastPart);
   return (
     <div className="w-full mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Manage Trainings</h1>
+        <h1 className="text-2xl font-bold">Manage Offers</h1>
         <button
-          onClick={() => router.push("/dashboard/admin/training/addTraining")}
+          onClick={() => router.push("/dashboard/admin/offer/addOffer")}
           className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
         >
-          + Add New Training
+          + Add New Offer
         </button>
       </div>
 
@@ -105,7 +96,7 @@ console.log(lastPart);
         </div>
       ) : (
         <div className="md:flex flex-wrap justify-center mt-7 gap-10 items-center lg:flex-row flex-col  ">
-          {training.map((data, index) => {
+          {offers.map((data, index) => {
             return (
               <div
                 key={index}
@@ -115,24 +106,18 @@ console.log(lastPart);
                 <img
                   src={`${data.imageUrl}`}
                   alt="no Image"
-                  className="hover:cursor-pointer rounded-t-md  h-[200px]"
+                  className="hover:cursor-pointer rounded-t-md  h-[100px]"
                 />
-                <div className="mx-auto my-5 font-bold text-xl">
-                  {data.trainingName}
+                <div className="mx-4 my-5 font-bold text-xl">
+                  Offer Name : {data.offerName}
                 </div>
-                <div className=" m-4">
-                  {data.trainingDetails.map((features, index) => {
-                    return (
-                      <ul key={index} className="mb-2 list-disc ml-5">
-                        <li className="text-[16px]">{features}</li>
-                      </ul>
-                    );
-                  })}
+                <div className=" m-4 flex gap-3">
+                   <p className="font-bold"> Offer Details :</p> {data.offerDetails}
                 </div>
                 {deleteModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-transparent backdrop-blur-md bg-opacity-50">
                   <div className="bg-white p-6 rounded-lg shadow-lg">
-                    <p className="mb-4">Are you sure you want to delete this blog?</p>
+                    <p className="mb-4">Are you sure you want to delete this offer?</p>
                     <div className="flex justify-end gap-4">
                       <button
                         onClick={closeDeleteModal}

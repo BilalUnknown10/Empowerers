@@ -31,13 +31,14 @@ const CountdownTimer = ({ targetDate, eventName }) => {
 
   return (
     <div className="flex justify-center items-center  py-[45px] sm:py-[55px] container mx-auto flex-col md:px-24 gap-5 sm:gap-10 px-10">
-      <div className="flex justify-center flex-col sm:flex-row items-center gap-10 ">
-        <div className="flex space-x-4 flex-col  gap-2 sm:flex-row text-center text-white text-2xl justify-center items-center font-bold">
-          <div>
+       <div>
             <h1 className="font-bold text-xl sm:text-3xl textGray drop-shadow-md ">
-              {eventName} : Remaining Time
+              {eventName}
             </h1>
           </div>
+      <div className="flex justify-center flex-col sm:flex-row items-center gap-10 ">
+        <div className="flex space-x-4 flex-col  gap-2 sm:flex-row text-center text-white text-2xl justify-center items-center font-bold">
+          
           <div className="flex  ">
             <div className=" border border-gray-800 sm:px-6 sm:py-3 px-2 py-1 rounded-lg">
               <p className="textGray">{timeLeft.days}</p>

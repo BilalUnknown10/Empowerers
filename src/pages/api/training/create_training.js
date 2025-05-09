@@ -32,7 +32,8 @@ export default async function create_training (req, res) {
         if([trainingDetails, trainingName].some(value => value === !value)) {return "All field are required"}
         
         const trainingDetailsConvertToArray = trainingDetails.split(",");
-        console.log(trainingDetailsConvertToArray)
+        // console.log(trainingDetailsConvertToArray);
+
         const createTraining = await Training.create({
             imageUrl,
             publicId,
@@ -42,7 +43,7 @@ export default async function create_training (req, res) {
             trainingPrice
         });
 
-        return res.status(200).json({message : "Training details add successfully", createTraining});
+        return res.status(200).json({message : "Training details add successfully"});
         
     } catch (error) {
         console.log(error)
